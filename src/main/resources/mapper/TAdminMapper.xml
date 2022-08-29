@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springdemo1.mapper.TAdminMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.springdemo1.entity.TAdmin">
+            <result property="adminid" column="adminId" jdbcType="INTEGER"/>
+            <result property="username" column="userName" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="tel" column="tel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        adminId,userName,password,
+        name,sex,tel
+    </sql>
+    <insert id="addusername" parameterType="TAdmin">
+        insert into t_admin(
+                            <include refid="Base_Column_List"></include>
+
+        )
+        values (#{adminid},#{username},#{password},#{name},#{sex},#{tel})
+    </insert>
+    <update id="updateUser">
+        update t_admin
+            <set>
+            <if test="password!=null and password!='' "></if>
+                password=#{password}
+            </set>
+
+                            where adminid=#{adminid}
+
+    </update>
+    <!--
+    <insert id="insterUser" parameterType="TAdmin">
+        insert into t_admin (<include refid="Base_Column_List"></include>)
+        values (#{username,#{name},#{adminid})
+    </insert>
+    -->
+
+    <select id="getAllUser" resultType="com.example.springdemo1.entity.TAdmin">
+
+select
+    <include refid="Base_Column_List"></include>
+    from t_admin
+</select>
+    <select id="getUserByName" resultType="com.example.springdemo1.entity.TAdmin">
+        select
+            <include refid="Base_Column_List"></include>
+            from t_admin
+            <where>
+                <if test="name!=null and name!='' ">
+                    userName like CONCAT('%',#{name},'%')
+                </if>
+                <if test="sex!=null">
+                    and sex=#{sex}
+                </if>
+            </where>
+
+    </select>
+
+
+
+</mapper>

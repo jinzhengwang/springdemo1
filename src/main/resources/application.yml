@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+#自定义
+user:
+  name: hehe
+  password: 123456
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: wjz741..
+    url: jdbc:mysql://localhost:3306/frame?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: com.example.springdemo1.entity #给实体类起别名
